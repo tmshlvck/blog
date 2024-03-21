@@ -13,4 +13,8 @@ Simple. The management web interface was a bit painful in the beginning and it i
 
 ## How
 
-I found this great blogpost [Daniel Roy Greenfeld - Blogger to Markdown Script](https://daniel.feldroy.com/posts/2022-02-blogger-to-markdown-script) .
+I found this great blogpost [Daniel Roy Greenfeld - Blogger to Markdown Script](https://daniel.feldroy.com/posts/2022-02-blogger-to-markdown-script) . By using the script and the described method it was easy to convert old posts from blogger.com to MD. Though the images need manual download and linking to the primary source. Or I may try to find the originals to see if they are better quality. But this remains TODO for now.
+
+Then I just created quick GitHub actions to deploy the blog based on this article [Material for MkDocs - Publishing your site](https://squidfunk.github.io/mkdocs-material/publishing-your-site/).
+
+The only downside is that the web URL is bound to be `<username>.github.io/<reponame>` but I guess it is a sensible simplification.

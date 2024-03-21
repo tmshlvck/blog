@@ -1,5 +1,5 @@
 site_name: Brill's techblog
-site_url: https://tmshlvck.github.io/
+site_url: https://tmshlvck.github.io/blog
 theme:
   name: material
   features:
