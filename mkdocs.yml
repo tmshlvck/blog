@@ -1,0 +1,13 @@
+site_name: Brill's techblog
+site_url: https://tmshlvck.github.io/
+theme:
+  name: material
+  features:
+    - navigation.sections
+plugins:
+  - blog:
+      blog_dir: . 
+  - search
+  - tags
+nav:
+  - index.md
