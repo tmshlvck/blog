@@ -13,9 +13,9 @@ title: MAAS regiond ignores new NICs, what now?
 ## Long story short
 I have an old MAAS `regiond+rackd` (the whole thing) installed from `snap` and updated over time to the fairly recent `stable/3.4` channel that now corresponds to the version `3.4.2`.
 
-I noticed that new NICs added to the VM that runs the MAAS install never appear in the MAAS controllers -> Interfaces page. But I need it in order to connect MAAS to the new VLANs we just deployed.
+I noticed that new NICs added to the VM, which runs the MAAS, never appear in the MAAS controllers -> Interfaces page. But I need it in order to connect MAAS to the new VLANs we just deployed.
 
-First clues comes from logs. The `/var/snap/maas/common/log/rackd.log` contains these errors:
+First clue comes from logs. The `/var/snap/maas/common/log/rackd.log` contains these errors:
 ```
 2024-05-09 12:00:14 twisted.internet.defer: [critical] Unhandled error in Deferred:
 2024-05-09 12:00:14 twisted.internet.defer: [critical] 
