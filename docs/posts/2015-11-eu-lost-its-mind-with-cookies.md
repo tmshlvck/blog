@@ -5,7 +5,7 @@ published: true
 slug: 2015-11-eu-lost-its-mind-with-cookies
 tags:
 - legacy-blogger
-time_to_read: 5
+readtime: 5
 title: EU lost it's mind with cookies
 ---
 

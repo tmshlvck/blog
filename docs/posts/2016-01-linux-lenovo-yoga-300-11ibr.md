@@ -9,7 +9,7 @@ tags:
 - Ubuntu
 - Linux kernel
 - legacy-blogger
-time_to_read: 5
+readtime: 5
 title: Linux @ Lenovo Yoga 300-11IBR
 ---
 

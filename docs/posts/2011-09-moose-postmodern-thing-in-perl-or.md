@@ -6,7 +6,7 @@ slug: 2011-09-moose-postmodern-thing-in-perl-or
 tags:
 - Perl Moose OOP
 - legacy-blogger
-time_to_read: 5
+readtime: 5
 title: Moose (a postmodern thing in Perl, or whatever) and circular reference+inheritence
 ---
 

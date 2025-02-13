@@ -7,7 +7,7 @@ tags:
 - Ubuntu
 - desktop
 - legacy-blogger
-time_to_read: 5
+readtime: 5
 title: Java disabled certain TLS/SSL algorithms - enable them back
 ---
 

@@ -8,7 +8,7 @@ tags:
 - gtkam
 - Gnome
 - legacy-blogger
-time_to_read: 5
+readtime: 5
 title: 'gtkam: Could not initialize camera.'
 ---
 

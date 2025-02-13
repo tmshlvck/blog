@@ -7,7 +7,7 @@ tags:
 - Linux
 - Networking
 - legacy-blogger
-time_to_read: 5
+readtime: 5
 title: Smokeping s*****y madness
 ---
 

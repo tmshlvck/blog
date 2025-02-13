@@ -8,7 +8,7 @@ tags:
 - Linux
 - Ubuntu
 - legacy-blogger
-time_to_read: 5
+readtime: 5
 title: SSH is going ape due to ed25519 host keys
 ---
 

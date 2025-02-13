@@ -6,7 +6,7 @@ slug: 2011-06-openindiana-build-148-vmware-esxi-41
 tags:
 - OpenIndiana
 - legacy-blogger
-time_to_read: 5
+readtime: 5
 title: OpenIndiana Build 148 @ VMWare ESXi 4.1
 ---
 

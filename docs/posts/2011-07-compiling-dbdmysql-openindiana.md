@@ -8,7 +8,7 @@ tags:
 - Perl
 - OpenIndiana
 - legacy-blogger
-time_to_read: 5
+readtime: 5
 title: Compiling DBD::mysql @OpenIndiana
 ---
 

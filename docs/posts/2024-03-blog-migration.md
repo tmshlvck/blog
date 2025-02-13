@@ -5,7 +5,7 @@ published: true
 slug: 2024-20-blog-migration
 tags:
 - legacy-blogger
-time_to_read: 1
+readtime: 1
 title: Migrating blog from blogger.com to mkdocs and GitHub pages
 ---
 ## Why?

@@ -6,7 +6,7 @@ slug: 2013-01-shameful-spyware-in-smooth-gestures
 tags:
 - desktop
 - legacy-blogger
-time_to_read: 5
+readtime: 5
 title: Shameful spyware in Smooth Gestures
 ---
 

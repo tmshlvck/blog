@@ -8,7 +8,7 @@ tags:
 - NRPE
 - OpenIndiana
 - legacy-blogger
-time_to_read: 5
+readtime: 5
 title: Nagios NRPE @OpenIndiana
 ---
 

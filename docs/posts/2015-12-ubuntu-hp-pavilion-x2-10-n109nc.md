@@ -9,7 +9,7 @@ tags:
 - Ubuntu
 - Linux kernel
 - legacy-blogger
-time_to_read: 5
+readtime: 5
 title: Ubuntu @ HP Pavilion X2 10-n109nc
 ---
 

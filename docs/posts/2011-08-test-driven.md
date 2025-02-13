@@ -9,7 +9,7 @@ tags:
 - test-driven operation
 - monitoring
 - legacy-blogger
-time_to_read: 5
+readtime: 5
 title: Test driven service operation vs. Nagios et al.
 ---
 

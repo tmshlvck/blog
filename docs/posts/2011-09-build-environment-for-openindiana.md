@@ -7,7 +7,7 @@ tags:
 - UNIX
 - OpenIndiana
 - legacy-blogger
-time_to_read: 5
+readtime: 5
 title: Build environment for OpenIndiana
 ---
 

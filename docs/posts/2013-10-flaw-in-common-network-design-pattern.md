@@ -6,7 +6,7 @@ slug: 2013-10-flaw-in-common-network-design-pattern
 tags:
 - Networking
 - legacy-blogger
-time_to_read: 5
+readtime: 5
 title: Flaw in common network design pattern (or in understanding how to use it)?
 ---
 

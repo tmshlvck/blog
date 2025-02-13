@@ -7,7 +7,7 @@ tags:
 - Linux kernel
 - Linux Mint
 - legacy-blogger
-time_to_read: 5
+readtime: 5
 title: USB device ID 0bdb:1926 Ericsson Business Mobile Networks BV stopped working
   after update Linux Mint 14 to 15
 ---

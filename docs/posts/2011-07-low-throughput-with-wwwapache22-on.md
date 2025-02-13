@@ -8,7 +8,7 @@ tags:
 - Apache
 - FreeBSD
 - legacy-blogger
-time_to_read: 5
+readtime: 5
 title: Low throughput with www/apache22 on FreeBSD 8.1
 ---
 

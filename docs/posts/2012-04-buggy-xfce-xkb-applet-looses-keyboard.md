@@ -8,7 +8,7 @@ tags:
 - Linux
 - desktop
 - legacy-blogger
-time_to_read: 5
+readtime: 5
 title: Buggy Xfce xkb applet looses keyboard layout config
 ---
 

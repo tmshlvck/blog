@@ -8,7 +8,7 @@ tags:
 - Ceph
 - ProxMox
 - legacy-blogger
-time_to_read: 5
+readtime: 5
 title: 'ProxMox 7.0 catch - Ceph OSD destroy: No Disks unused'
 ---
 

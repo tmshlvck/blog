@@ -8,7 +8,7 @@ tags:
 - Linux
 - Linux kernel
 - legacy-blogger
-time_to_read: 5
+readtime: 5
 title: Hibernation on Debian unstable (sid) sucks badly
 ---
 

@@ -7,7 +7,7 @@ tags:
 - Debian
 - HW
 - legacy-blogger
-time_to_read: 5
+readtime: 5
 title: 'hpacucli: Error: No controllers detected. with hpsa and SmartArray P410i'
 ---
 

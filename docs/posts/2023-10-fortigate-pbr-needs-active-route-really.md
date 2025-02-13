@@ -8,7 +8,7 @@ tags:
 - Networking
 - FortiGate
 - legacy-blogger
-time_to_read: 5
+readtime: 5
 title: FortiGate PBR needs active route - really?
 ---
 

@@ -7,7 +7,7 @@ tags:
 - Debian
 - Linux
 - legacy-blogger
-time_to_read: 5
+readtime: 5
 title: Debian's driver for Intel GPUs is s***
 ---
 

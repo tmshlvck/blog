@@ -7,7 +7,7 @@ tags:
 - FreeBSD
 - ZFS
 - legacy-blogger
-time_to_read: 5
+readtime: 5
 title: ZFS pools surveillance using Nagios and NRPE
 ---
 

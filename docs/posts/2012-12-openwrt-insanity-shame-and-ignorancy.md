@@ -8,7 +8,7 @@ tags:
 - HW
 - Networking
 - legacy-blogger
-time_to_read: 5
+readtime: 5
 title: OpenWRT insanity, shame and ignorancy
 ---
 

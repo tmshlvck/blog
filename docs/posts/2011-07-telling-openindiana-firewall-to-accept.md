@@ -7,7 +7,7 @@ tags:
 - filrewall
 - OpenIndiana
 - legacy-blogger
-time_to_read: 5
+readtime: 5
 title: Telling OpenIndiana firewall to accept my rules
 ---
 

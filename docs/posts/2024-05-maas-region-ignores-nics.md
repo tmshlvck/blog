@@ -7,7 +7,7 @@ tags:
 - MAAS
 - Linux
 - DevOps
-time_to_read: 3
+readtime: 3
 title: MAAS regiond ignores new NICs, what now?
 ---
 ## Long story short

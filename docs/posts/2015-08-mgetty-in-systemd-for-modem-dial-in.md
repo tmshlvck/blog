@@ -7,7 +7,7 @@ tags:
 - Debian
 - Linux
 - legacy-blogger
-time_to_read: 5
+readtime: 5
 title: mgetty in systemd for modem dial-in server
 ---
 
