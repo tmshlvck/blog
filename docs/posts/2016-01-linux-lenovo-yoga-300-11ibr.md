@@ -15,47 +15,30 @@ title: Linux @ Lenovo Yoga 300-11IBR
 
 *This was originally posted on blogger [here](https://snarkybrill.blogspot.com/2016/01/linux-lenovo-yoga-300-11ibr.html)*.
 
-In the previous post I ranted about the utter ignorance, carelessness and windows-centredness of HP, which is unable to provide compatible ACPI and decided to put there some unknown I2C codec that even google or worse baidu haven't heard about when I tried to type the chip markings there. So I gave up and sold the Windows-only HP Pavilion X2 laptop to a friend who does not mind this crap OS.<br />
-<div>
-<br /></div>
-<div>
-And I have new and shining Lenovo Yoga 300-11IBR. It is slightly larger, heavier and has shorter battery life than the HP Pavilion X2 and it has standard 45W power brick while HP had nice tiny tablet charger with USB-C connector. But anyway, Lenovo runs Linux without problems... Well, at least without unbearable problems.</div>
-<div>
-<br /></div>
-<div>
-Before proceeding further there are some photos:</div>
-<div>
-<br /></div>
-<div class="separator" style="clear: both; text-align: center;">
-<a href="http://4.bp.blogspot.com/-vB3WQ6NY8s8/VqKD5k3b3vI/AAAAAAAAAq8/8UHfcOvMxQk/s1600/2016-01-22%2B20.00.00.jpg" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="400" src="http://4.bp.blogspot.com/-vB3WQ6NY8s8/VqKD5k3b3vI/AAAAAAAAAq8/8UHfcOvMxQk/s400/2016-01-22%2B20.00.00.jpg" width="225" /></a></div>
-<div>
-<br /></div>
-<div>
-And insides:</div>
-<div class="separator" style="clear: both; text-align: center;">
-<a href="http://1.bp.blogspot.com/-DLYyaSIru-c/VqKEJAzXQPI/AAAAAAAAArE/NVqDHCHEEKU/s1600/2016-01-12%2B11.04.42.jpg" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="225" src="http://1.bp.blogspot.com/-DLYyaSIru-c/VqKEJAzXQPI/AAAAAAAAArE/NVqDHCHEEKU/s400/2016-01-12%2B11.04.42.jpg" width="400" /></a></div>
-<div>
-<br /></div>
-<div>
-There is no fan (sweet) and there is even a place for thin 2.5'' disc, but special bracket and a cable is needed. (I have eMMC version with 64 GB and I am fine with that.)</div>
-<div>
-<br /></div>
-<div>
-OK, so what's the status with Linux. I tried this puppy with Ubuntu 15.10 and it worked out of box. Touchscreen, graphics, touchpad, camera, power indicator, sound, everything seems to be doing fine. But... I noticed some problems with ACPI after a while: Special keys, like volume + / - (physical), screen brightness + / - (virtual) seems not to be working or working with unpredictable delay. Software applets for manipulating volume and brightness works for me, so it is not a show stopper. And the same observation fits to ACPI events like AC adapter inserted or removed - there is huge delay, like tens of seconds or minute. And the same for LID close event. And the orientation sensor seems not to be supported - there is some ugly error in dmesg that concerns probing it. But I am using the laptop as a laptop so I do not care about the sensor much.</div>
-<div>
-<br /></div>
-<div>
-But anyway, the ACPI events problem might get solved in some BIOS update or there might be a solution in rewriting DSDT table. I dind't have enough time to dig deeper so far.</div>
-<div>
-<br /></div>
-<div>
-I am attaching dmesg and dmidecode outputs here.</div>
-<div>
-<br /></div>
-<div>
-dmesg:</div>
-<div>
-<pre>[    0.000000] Initializing cgroup subsys cpuset
+In the previous post I ranted about the utter ignorance, carelessness and windows-centredness of HP, which is unable to provide compatible ACPI and decided to put there some unknown I2C codec that even google or worse baidu haven't heard about when I tried to type the chip markings there. So I gave up and sold the Windows-only HP Pavilion X2 laptop to a friend who does not mind this crap OS.
+
+And I have new and shining Lenovo Yoga 300-11IBR. It is slightly larger, heavier and has shorter battery life than the HP Pavilion X2 and it has standard 45W power brick while HP had nice tiny tablet charger with USB-C connector. But anyway, Lenovo runs Linux without problems... Well, at least without unbearable problems.
+
+Before proceeding further there are some photos:
+
+![Lenovo Yoga 300 11IBR](../images/lenovo-yoga-300-1.jpg)
+
+And insides:
+
+![Lenovo Yoga 300 11IBR Insides](../images/lenovo-yoga-300-2.jpg)
+
+There is no fan (sweet) and there is even a place for thin 2.5'' disc, but special bracket and a cable is needed. (I have eMMC version with 64 GB and I am fine with that.)
+
+OK, so what's the status with Linux. I tried this puppy with Ubuntu 15.10 and it worked out of box. Touchscreen, graphics, touchpad, camera, power indicator, sound, everything seems to be doing fine. But... I noticed some problems with ACPI after a while: Special keys, like volume + / - (physical), screen brightness + / - (virtual) seems not to be working or working with unpredictable delay. Software applets for manipulating volume and brightness works for me, so it is not a show stopper. And the same observation fits to ACPI events like AC adapter inserted or removed - there is huge delay, like tens of seconds or minute. And the same for LID close event. And the orientation sensor seems not to be supported - there is some ugly error in dmesg that concerns probing it. But I am using the laptop as a laptop so I do not care about the sensor much.
+
+But anyway, the ACPI events problem might get solved in some BIOS update or there might be a solution in rewriting DSDT table. I dind't have enough time to dig deeper so far.
+
+I am attaching dmesg and dmidecode outputs here.
+
+## dmesg
+
+```
+[    0.000000] Initializing cgroup subsys cpuset
 [    0.000000] Initializing cgroup subsys cpu
 [    0.000000] Initializing cgroup subsys cpuacct
 [    0.000000] Linux version 4.4.0-rc8 (brill@hroch) (gcc version 5.2.1 20151010 (Ubuntu 5.2.1-22ubuntu2) ) #1 SMP Tue Jan 5 17:25:05 CET 2016
@@ -864,13 +847,12 @@ dmesg:</div>
 [   12.539686] cfg80211:   (5250000 KHz - 5350000 KHz @ 80000 KHz, 200000 KHz AUTO), (N/A, 2000 mBm), (0 s)
 [   12.539690] cfg80211:   (5470000 KHz - 5725000 KHz @ 160000 KHz), (N/A, 2698 mBm), (0 s)
 [   12.539693] cfg80211:   (57000000 KHz - 66000000 KHz @ 2160000 KHz), (N/A, 4000 mBm), (N/A)
-</pre>
-<br />
-dmidecode:
+```
 
-<br />
-<br />
-<pre># dmidecode 2.12
+## dmidecode
+
+```
+# dmidecode 2.12
 # SMBIOS entry point at 0x79eb3000
 SMBIOS 2.8 present.
 52 structures occupying 2329 bytes.
@@ -1467,9 +1449,9 @@ OEM-specific Type
 
 Handle 0xFEFF, DMI type 127, 4 bytes
 End Of Table
-</pre>
-<br />
-I would appreciate any pointers to resources or help with solving the problems. Though even with that problems I like this laptop.</div>
+```
+
+I would appreciate any pointers to resources or help with solving the problems. Though even with that problems I like this laptop.
 
 ---
 

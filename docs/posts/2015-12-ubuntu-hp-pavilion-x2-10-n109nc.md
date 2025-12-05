@@ -15,20 +15,18 @@ title: Ubuntu @ HP Pavilion X2 10-n109nc
 
 *This was originally posted on blogger [here](https://snarkybrill.blogspot.com/2015/12/ubuntu-hp-pavilion-x2-10-n109nc.html)*.
 
-<div class="separator" style="clear: both; text-align: center;">
-<a href="http://4.bp.blogspot.com/-03M9vwerP58/VnssDHllLxI/AAAAAAAAAqI/E6XW91CkO3Y/s1600/2015-12-23%2B23.45.03.jpg" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="180" src="http://4.bp.blogspot.com/-03M9vwerP58/VnssDHllLxI/AAAAAAAAAqI/E6XW91CkO3Y/s320/2015-12-23%2B23.45.03.jpg" width="320" /></a></div>
-<br />
-<br />
-I just bought this laptop/tablet. And I wanted to run it with Ubuntu from the first moment. I knew that it is a bold aim...<br />
-<br />
-As I expected: Ordinary Ubuntu 15.10 desktop installer just hangs during startup. I had a bit more luck with the server installer (though I had to use USB NIC to connect to the Internet) and then I was able to install the system and after that I replaced kernel with 4.4-rc6 from&nbsp;kernel-ppa/mainline and X.Org with edgers PPA. Since then the wireless NIC runs and the system seems to be stable now.<br />
-<br />
-But ACPI does not work well (see the dmeg below), GPU gives a lot of errors into dmesg (not displayed), sound does not work at all, no battery indicator is available and suspend does not work.<br />
-<br />
-dmesg:
-<br />
-<br />
-<pre>[    0.000000] Initializing cgroup subsys cpuset
+![HP Pavilion x2](../images/hp-pavilion-x2.jpg)
+
+I just bought this laptop/tablet. And I wanted to run it with Ubuntu from the first moment. I knew that it is a bold aim...
+
+As I expected: Ordinary Ubuntu 15.10 desktop installer just hangs during startup. I had a bit more luck with the server installer (though I had to use USB NIC to connect to the Internet) and then I was able to install the system and after that I replaced kernel with 4.4-rc6 from kernel-ppa/mainline and X.Org with edgers PPA. Since then the wireless NIC runs and the system seems to be stable now.
+
+But ACPI does not work well (see the dmeg below), GPU gives a lot of errors into dmesg (not displayed), sound does not work at all, no battery indicator is available and suspend does not work.
+
+## dmesg
+
+```
+[    0.000000] Initializing cgroup subsys cpuset
 [    0.000000] Initializing cgroup subsys cpu
 [    0.000000] Initializing cgroup subsys cpuacct
 [    0.000000] Linux version 4.4.0-040400rc6-generic (kernel@tangerine) (gcc version 5.2.1 20151010 (Ubuntu 5.2.1-22ubuntu2) ) #201512202030 SMP Mon Dec 21 01:32:09 UTC 2015
@@ -830,9 +828,8 @@ dmesg:
 [   12.190899] wlp1s0: RX AssocResp from f8:8e:85:af:b8:47 (capab=0x411 status=0 aid=2)
 [   12.196734] wlp1s0: associated
 [   12.196817] IPv6: ADDRCONF(NETDEV_CHANGE): wlp1s0: link becomes ready
-</pre>
-<br />
-<br />
+```
+
 
 ---
 

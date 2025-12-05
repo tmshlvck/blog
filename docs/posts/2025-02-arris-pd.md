@@ -29,7 +29,7 @@ Does it promise more flexibility than static routes? Sure. And everybody is usin
 That brings me to THE MODEM. I got it from UPC/Sunrise few years ago when I got the service in the suburbs of Zurich. It is
 in fact a heavily locked-down and branded version of Arris TG3492LG-LC.
 
-![Modem Arris TG3492LG-LC](images/IMG_20250212_230513.jpg)
+![Modem Arris TG3492LG-LC](../images/IMG_20250212_230513.jpg)
 
 ## PD going wrong with `systemd-networkd`
 

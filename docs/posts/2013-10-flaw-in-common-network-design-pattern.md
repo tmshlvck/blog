@@ -12,12 +12,11 @@ title: Flaw in common network design pattern (or in understanding how to use it)
 
 *This was originally posted on blogger [here](https://snarkybrill.blogspot.com/2013/10/flaw-in-common-network-design-pattern.html)*.
 
-There is an old and not-so-clever network design pattern like this:<br />
-<br />
-<div class="separator" style="clear: both; text-align: center;">
-<a href="http://2.bp.blogspot.com/-E_TM_EDbTkw/UljlhoDw1UI/AAAAAAAAAHs/H3jvFEfNa38/s1600/layered-design-pattern.png" style="margin-left: 1em; margin-right: 1em;"><img border="0" height="165" src="http://2.bp.blogspot.com/-E_TM_EDbTkw/UljlhoDw1UI/AAAAAAAAAHs/H3jvFEfNa38/s320/layered-design-pattern.png" width="320" /></a></div>
-<br />
-<br />
+There is an old and not-so-clever network design pattern like this:
+
+![Layered Design Pattern](../images/layered-design-pattern.png)
+
+
 I know this from CCN(A|P) but I have no idea who invented it. Cisco perhaps. Idea is to use IGP, nowadays it is naturally OSPF in most cases, for resolution of the L3 path towards a subnet in question. The subnet itself is terminated on a gateway. Two different gateways to be accurate. One acts as a default gateway, which means that it is active router in HSRP, so it holds "virtual" IP address as well as MAC address of the default gateway. It is the address that hosts in the subnet uses in their routing tables and subsequently in their ARP tables.<br />
 <br />
 So far so good. Everything is up and running, one gateway is active, another one passive, both routers are redistributing connected routes to OSPF and both are able to deliver traffic from L3 networks towards clients in the L2 subnet in question.<br />
