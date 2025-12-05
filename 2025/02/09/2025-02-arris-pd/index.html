@@ -1,0 +1,1096 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://tmshlvck.github.io/blog/2025/02/09/2025-02-arris-pd/">
+      
+      
+        <link rel="prev" href="../../../../2024/05/09/2024-21-maas-region-ignores-nics/">
+      
+      
+        <link rel="next" href="../../../12/04/2025-12-mt7615e-eeprom-bpir4/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Prefix Delegation broken with systemd-network and UPC/Sunrise(CH)-supplied Arris modem - Brill's techblog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.618322db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ipv6-home-network" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="Brill&#39;s techblog" class="md-header__button md-logo" aria-label="Brill's techblog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Brill's techblog
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Prefix Delegation broken with systemd-network and UPC/Sunrise(CH)-supplied Arris modem
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="Brill&#39;s techblog" class="md-nav__button md-logo" aria-label="Brill's techblog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Brill's techblog
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+    
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      <a href="../../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Blog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Archive
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Archive
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2025/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2025
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2024/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2024
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2023/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2023
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2022/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2022
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2021/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2021
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2019/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2019
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2016/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2016
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2015/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2015
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2014/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2014
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2013/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2013
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2012/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2012
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2011/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2011
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2010/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2010
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ipv6-home-network" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IPv6 home network
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#funny-modem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Funny modem
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pd-going-wrong-with-systemd-networkd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        PD going wrong with systemd-networkd
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#systemd-networkd-debug" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        systemd-networkd debug
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tcpdump" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        tcpdump
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#whatwho-is-wrong-then" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What/who is wrong then?
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+  <div class="md-content md-content--post" data-md-component="content">
+    <div class="md-sidebar md-sidebar--post" data-md-component="sidebar" data-md-type="navigation">
+      <div class="md-sidebar__scrollwrap">
+        <div class="md-sidebar__inner md-post">
+          <nav class="md-nav md-nav--primary">
+            <div class="md-post__back">
+              <div class="md-nav__title md-nav__container">
+                <a href="../../../.." class="md-nav__link">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+                  <span class="md-ellipsis">
+                    Back to index
+                  </span>
+                </a>
+              </div>
+            </div>
+            
+            <ul class="md-post__meta md-nav__list">
+              <li class="md-nav__item md-nav__item--section">
+                <div class="md-post__title">
+                  <span class="md-ellipsis">
+                    Metadata
+                  </span>
+                </div>
+                <nav class="md-nav">
+                  <ul class="md-nav__list">
+                    <li class="md-nav__item">
+                      <div class="md-nav__link">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5z"/></svg>
+                        <time datetime="2025-02-09 13:00:00+02:00" class="md-ellipsis">February 9, 2025</time>
+                      </div>
+                    </li>
+                    
+                    
+                    
+                      
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg>
+                          <span class="md-ellipsis">
+                            
+                              6 min read
+                            
+                          </span>
+                        </div>
+                      </li>
+                    
+                  </ul>
+                </nav>
+              </li>
+            </ul>
+            
+          </nav>
+          
+        </div>
+      </div>
+    </div>
+    <article class="md-content__inner md-typeset">
+      
+        
+  
+
+
+  <nav class="md-tags" >
+    
+      
+      
+      
+      
+        <span class="md-tag">DHCPv6</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">IPv6</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">Linux</span>
+      
+    
+      
+      
+      
+      
+        <span class="md-tag">Networking</span>
+      
+    
+  </nav>
+
+
+
+  <h1>Prefix Delegation broken with systemd-network and UPC/Sunrise(CH)-supplied Arris modem</h1>
+
+<h2 id="ipv6-home-network">IPv6 home network</h2>
+<p>Networking is not a fun anymore, they said. Noone wants to do networking, they said.</p>
+<p>Well, yes, IPv4 is obsolete and dull even without the great evil of all times - NAT.
+But I am using IPv6 for fun and profit for years now, so everything is fine, right? Nope. IPv6 is stil a second class citizen for most
+of the ISPs. Many software developers hardly understand the basics of networking and they make the apps working empirically and iteratively.
+IPv6 is left broken in many cases because there is still supposed to be a fallback to IPv4 - "happy eyeballs".</p>
+<p>And yes, v6 is indeed more complex in certain aspects.</p>
+<p>Look at the prefix delegation: Is it necessary to run large access network? No, in most cases.
+Does it promise more flexibility than static routes? Sure. And everybody is using it! Just join the bandwagon...</p>
+<h2 id="funny-modem">Funny modem</h2>
+<p>That brings me to THE MODEM. I got it from UPC/Sunrise few years ago when I got the service in the suburbs of Zurich. It is
+in fact a heavily locked-down and branded version of Arris TG3492LG-LC.</p>
+<p><img alt="Modem Arris TG3492LG-LC" src="../../../../images/IMG_20250212_230513.jpg" /></p>
+<h2 id="pd-going-wrong-with-systemd-networkd">PD going wrong with <code>systemd-networkd</code></h2>
+<p>On the receiving end is just a current Debian stable (bookworm) running on Turris Omnia (armhf) board. Nothing fancy. I configured
+<code>systemd-networkd</code> with the following <code>/etc/systemd/network/end2.network</code>:</p>
+<pre><code>[Match]
+Name=end2
+
+[Network]
+KeepConfiguration=yes
+Address=192.168.1.2/24
+Gateway=192.168.1.1
+LinkLocalAddressing=ipv6
+IPv6AcceptRA=yes
+ConfigureWithoutCarrier=true
+
+[IPv6AcceptRA]
+DHCPv6Client=always
+
+[DHCPv6]
+PrefixDelegationHint=::/60
+</code></pre>
+<p>And I had corresponding config so I can use the delegated prefix on <code>br0</code>:</p>
+<pre><code>[Match]
+Name=br0
+
+[Network]
+ConfigureWithoutCarrier=yes
+LinkLocalAddressing=ipv6
+Address=192.168.8.1/24
+DHCPPrefixDelegation=yes
+IPv6SendRA=yes
+IPv6AcceptRA=no
+
+[DHCPPrefixDelegation]
+UplinkInterface=end2
+SubnetId=0x0
+Announce=yes
+
+[IPv6SendRA]
+EmitDNS=yes
+DNS=2606:4700:4700::1111
+DNS=2001:4860:4860::8888
+</code></pre>
+<p>Which worked to a certain extent. Sometimes (say that 1 in 2 or 3 tries succeeded so I got the delegated prefix on <code>br0</code>). But astonishingly I
+was also randomly loosing the delegated prefix within 5-15 minutes after I obtained it. So I configured <code>systemd-networkd</code>
+debugging in <code>/etc/systemd/system/systemd-networkd.service.d/10-debug.conf</code> :</p>
+<pre><code>[Service]
+Environment=SYSTEMD_LOG_LEVEL=debug
+</code></pre>
+<h2 id="systemd-networkd-debug">systemd-networkd debug</h2>
+<p>Two observations in the log:</p>
+<p>1) the T1 and T2 for the delegated prefix are unusually short (5 and 10 seconds).</p>
+<p>2) It seems that the lost delegation is caused by a malformed message sent by the modem when the <code>systemd-networkd</code> misses the T2 renew
+deadline and has to rebind the PD instead (see Feb 09 11:30:23).</p>
+<pre><code>Feb 09 11:29:05 slepice systemd-networkd[12922]: end2: Requesting NDisc route (configuring,configured): dst: 2a02:aa11:380:300::/57, src: n/a, gw: fe80::aef8:ccff:fe64:3975, prefsrc: n/a, scope: global, table: main(254), proto: ra, type: unicast, nexthop: 0, priority: 1024, flags: n/a
+Feb 09 11:29:05 slepice systemd-networkd[12922]: end2: Route prefix is ::/0, ignoring
+Feb 09 11:29:05 slepice systemd-networkd[12922]: end2: Setting SLAAC addresses and router.
+Feb 09 11:29:05 slepice systemd-networkd[12922]: end2: DHCPv6 client: Timeout T1
+Feb 09 11:29:05 slepice systemd-networkd[12922]: end2: DHCPv6 client: State changed: bound -&gt; renew
+Feb 09 11:29:05 slepice systemd-networkd[12922]: end2: Configuring NDisc route (requesting,configuring,configured): dst: n/a, src: n/a, gw: fe80::aef8:ccff:fe64:3975, prefsrc: n/a, scope: global, table: main(254), proto: ra, type: unicast, nexthop: 0, priority: 1024, flags: n/a
+Feb 09 11:29:05 slepice systemd-networkd[12922]: end2: Configuring NDisc route (requesting,configuring,configured): dst: 2a02:aa11:380:300::/64, src: n/a, gw: n/a, prefsrc: n/a, scope: global, table: main(254), proto: ra, type: unicast, nexthop: 0, priority: 1024, flags: n/a
+Feb 09 11:29:05 slepice systemd-networkd[12922]: end2: Configuring NDisc address (requesting,configured): 2a02:aa11:380:300:da58:d7ff:fe00:19f3/64 (valid for 1w 4d 11h 52min 40s, preferred for 4d 11h 52min 40s), flags: manage-temporary-address,no-prefixroute, scope: global
+Feb 09 11:29:05 slepice systemd-networkd[12922]: end2: Configuring NDisc route (requesting,configuring,configured): dst: 2a02:aa11:380:300::/57, src: n/a, gw: fe80::aef8:ccff:fe64:3975, prefsrc: n/a, scope: global, table: main(254), proto: ra, type: unicast, nexthop: 0, priority: 1024, flags: n/a
+Feb 09 11:29:05 slepice systemd-networkd[12922]: end2: DHCPv6 client: Sent Renew
+Feb 09 11:29:05 slepice systemd-networkd[12922]: end2: DHCPv6 client: Next retransmission in 9s
+Feb 09 11:29:05 slepice systemd-networkd[12922]: end2: ndisc_check_ready(): SLAAC addresses and routes are not set.
+Feb 09 11:29:05 slepice systemd-networkd[12922]: end2: ndisc_check_ready(): SLAAC addresses and routes are not set.
+Feb 09 11:29:05 slepice systemd-networkd[12922]: end2: Received updated NDisc address (configured): 2a02:aa11:380:300:da58:d7ff:fe00:19f3/64 (valid for 1w 4d 11h 52min 40s, preferred for 4d 11h 52min 40s), flags: manage-temporary-address,no-prefixroute, scope: global
+Feb 09 11:29:05 slepice systemd-networkd[12922]: end2: ndisc_check_ready(): SLAAC addresses and routes are not set.
+Feb 09 11:29:05 slepice systemd-networkd[12922]: end2: SLAAC addresses and routes set.
+Feb 09 11:29:05 slepice systemd-networkd[12922]: end2: DHCPv6 client: Processed Reply message
+Feb 09 11:29:05 slepice systemd-networkd[12922]: end2: DHCPv6 client: T1 expires in 4s
+Feb 09 11:29:05 slepice systemd-networkd[12922]: end2: DHCPv6 client: T2 expires in 9s
+Feb 09 11:29:05 slepice systemd-networkd[12922]: end2: DHCPv6 client: Valid lifetime expires in 3h
+Feb 09 11:29:05 slepice systemd-networkd[12922]: end2: DHCPv6 client: State changed: renew -&gt; bound
+...
+Feb 09 11:30:23 slepice systemd-networkd[12922]: end2: DHCPv6 client: Timeout T1
+Feb 09 11:30:23 slepice systemd-networkd[12922]: end2: DHCPv6 client: State changed: bound -&gt; renew
+Feb 09 11:30:23 slepice systemd-networkd[12922]: end2: DHCPv6 client: Timeout T2
+Feb 09 11:30:23 slepice systemd-networkd[12922]: end2: DHCPv6 client: State changed: renew -&gt; rebind
+Feb 09 11:30:23 slepice systemd-networkd[12922]: end2: DHCPv6 client: Sent Rebind
+Feb 09 11:30:23 slepice systemd-networkd[12922]: end2: DHCPv6 client: Next retransmission in 9s
+Feb 09 11:30:23 slepice systemd-networkd[12922]: end2: DHCPv6 client: Received an IA option without valid IA addresses or PD prefixes, ignoring.
+Feb 09 11:30:23 slepice systemd-networkd[12922]: end2: DHCPv6 client: Failed to parse IA_PD option, ignoring: No data available
+Feb 09 11:30:23 slepice systemd-networkd[12922]: end2: DHCPv6 client: Processed Reply message
+Feb 09 11:30:23 slepice systemd-networkd[12922]: end2: DHCPv6 client: T1 expires in 2d 3h 25min 40s
+Feb 09 11:30:23 slepice systemd-networkd[12922]: end2: DHCPv6 client: T2 expires in 3d 6h 17min 36s
+Feb 09 11:30:23 slepice systemd-networkd[12922]: end2: DHCPv6 client: Valid lifetime expires in 4d 11h 52min 41s
+Feb 09 11:30:23 slepice systemd-networkd[12922]: end2: DHCPv6 client: State changed: rebind -&gt; bound
+Feb 09 11:30:23 slepice systemd-networkd[12922]: end2: DHCPv6 address 2a02:aa11:380:300::d6f1/128 (valid for 4d 11h 52min 40s, preferred for 4d 11h 52min 40s)
+Feb 09 11:30:23 slepice systemd-networkd[12922]: end2: Requesting DHCPv6 address (configured): 2a02:aa11:380:300::d6f1/128 (valid for 4d 11h 52min 40s, preferred for 4d 11h 52min 40s), flags: no-prefixroute, scope: global
+Feb 09 11:30:23 slepice systemd-networkd[12922]: br0: Removing DHCP-PD address (configured): 2a02:aa11:380:310:ac58:60ff:fe6b:cd2e/64 (valid for 2h 59min 50s, preferred for 1h 59min 50s), flags: manage-temporary-address, scope: global
+Feb 09 11:30:23 slepice systemd-networkd[12922]: Sent message type=signal sender=n/a destination=n/a path=/org/freedesktop/network1/link/_310 interface=org.freedesktop.DBus.Properties member=PropertiesChanged cookie=79 reply_cookie=0 signature=sa{sv}as error-name=n/a error-message=n/a
+Feb 09 11:30:23 slepice systemd-networkd[12922]: Removing DHCPv6 route (configuring,configured): dst: 2a02:aa11:380:310::/60, src: n/a, gw: n/a, prefsrc: n/a, scope: global, table: main(254), proto: dhcp, type: unreachable, nexthop: 0, priority: 1024, flags: n/a
+Feb 09 11:30:23 slepice systemd-networkd[12922]: end2: Setting DHCPv6 addresses and routes
+Feb 09 11:30:23 slepice systemd-networkd[12922]: end2: Configuring DHCPv6 address (requesting,configured): 2a02:aa11:380:300::d6f1/128 (valid for 4d 11h 52min 40s, preferred for 4d 11h 52min 40s), flags: no-prefixroute, scope: global
+Feb 09 11:30:23 slepice systemd-networkd[12922]: br0: Forgetting DHCP-PD address (n/a): 2a02:aa11:380:310:ac58:60ff:fe6b:cd2e/64 (valid for 2h 59min 49s, preferred for 1h 59min 49s), flags: manage-temporary-address, scope: global
+Feb 09 11:30:23 slepice systemd-networkd[12922]: br0: Forgetting foreign route (n/a): dst: 2a02:aa11:380:310::/128, src: n/a, gw: n/a, prefsrc: n/a, scope: global, table: local(255), proto: kernel, type: anycast, nexthop: 0, priority: 0, flags: n/a
+Feb 09 11:30:23 slepice systemd-networkd[12922]: br0: Forgetting foreign route (n/a): dst: 2a02:aa11:380:310:ac58:60ff:fe6b:cd2e/128, src: n/a, gw: n/a, prefsrc: n/a, scope: global, table: local(255), proto: kernel, type: local, nexthop: 0, priority: 0, flags: n/a
+Feb 09 11:30:23 slepice systemd-networkd[12922]: Removed DHCPv6 route (configuring): dst: 2a02:aa11:380:310::/60, src: n/a, gw: n/a, prefsrc: n/a, scope: global, table: main(254), proto: dhcp, type: unreachable, nexthop: 0, priority: 1024, flags: n/a
+Feb 09 11:30:23 slepice systemd-networkd[12922]: end2: Received updated DHCPv6 address (configured): 2a02:aa11:380:300::d6f1/128 (valid for 4d 11h 52min 40s, preferred for 4d 11h 52min 40s), flags: no-prefixroute, scope: global
+Feb 09 11:30:23 slepice systemd-networkd[12922]: end2: DHCPv6 addresses and routes set.
+Feb 09 11:30:23 slepice systemd-networkd[12922]: end2: NDISC: Received Router Advertisement: flags OTHER preference medium lifetime 1800 sec
+Feb 09 11:30:23 slepice systemd-networkd[12922]: end2: NDISC: Invoking callback for 'router' event.
+Feb 09 11:30:23 slepice systemd-networkd[12922]: end2: Acquiring DHCPv6 lease on NDisc request
+Feb 09 11:30:23 slepice systemd-networkd[12922]: end2: Requesting NDisc route (configuring,configured): dst: n/a, src: n/a, gw: fe80::aef8:ccff:fe64:3975, prefsrc: n/a, scope: global, table: main(254), proto: ra, type: unicast, nexthop: 0, priority: 1024, flags: n/a
+Feb 09 11:30:23 slepice systemd-networkd[12922]: end2: Requesting NDisc route (configuring,configured): dst: 2a02:aa11:380:300::/64, src: n/a, gw: n/a, prefsrc: n/a, scope: global, table: main(254), proto: ra, type: unicast, nexthop: 0, priority: 1024, flags: n/a
+Feb 09 11:30:23 slepice systemd-networkd[12922]: end2: Requesting NDisc address (configured): 2a02:aa11:380:300:da58:d7ff:fe00:19f3/64 (valid for 1w 4d 11h 52min 40s, preferred for 4d 11h 52min 40s), flags: manage-temporary-address,no-prefixroute, scope: global
+Feb 09 11:30:23 slepice systemd-networkd[12922]: end2: Requesting NDisc route (configuring,configured): dst: 2a02:aa11:380:300::/57, src: n/a, gw: fe80::aef8:ccff:fe64:3975, prefsrc: n/a, scope: global, table: main(254), proto: ra, type: unicast, nexthop: 0, priority: 1024, flags: n/a
+Feb 09 11:30:23 slepice systemd-networkd[12922]: end2: Route prefix is ::/0, ignoring
+Feb 09 11:30:23 slepice systemd-networkd[12922]: end2: Setting SLAAC addresses and router.
+Feb 09 11:30:23 slepice systemd-networkd[12922]: end2: Configuring NDisc route (requesting,configuring,configured): dst: n/a, src: n/a, gw: fe80::aef8:ccff:fe64:3975, prefsrc: n/a, scope: global, table: main(254), proto: ra, type: unicast, nexthop: 0, priority: 1024, flags: n/a
+Feb 09 11:30:23 slepice systemd-networkd[12922]: end2: Configuring NDisc route (requesting,configuring,configured): dst: 2a02:aa11:380:300::/64, src: n/a, gw: n/a, prefsrc: n/a, scope: global, table: main(254), proto: ra, type: unicast, nexthop: 0, priority: 1024, flags: n/a
+Feb 09 11:30:23 slepice systemd-networkd[12922]: end2: Configuring NDisc address (requesting,configured): 2a02:aa11:380:300:da58:d7ff:fe00:19f3/64 (valid for 1w 4d 11h 52min 40s, preferred for 4d 11h 52min 40s), flags: manage-temporary-address,no-prefixroute, scope: global
+Feb 09 11:30:23 slepice systemd-networkd[12922]: end2: Configuring NDisc route (requesting,configuring,configured): dst: 2a02:aa11:380:300::/57, src: n/a, gw: fe80::aef8:ccff:fe64:3975, prefsrc: n/a, scope: global, table: main(254), proto: ra, type: unicast, nexthop: 0, priority: 1024, flags: n/a
+Feb 09 11:30:23 slepice systemd-networkd[12922]: end2: ndisc_check_ready(): SLAAC addresses and routes are not set.
+Feb 09 11:30:23 slepice systemd-networkd[12922]: end2: ndisc_check_ready(): SLAAC addresses and routes are not set.
+Feb 09 11:30:23 slepice systemd-networkd[12922]: end2: Received updated NDisc address (configured): 2a02:aa11:380:300:da58:d7ff:fe00:19f3/64 (valid for 1w 4d 11h 52min 40s, preferred for 4d 11h 52min 40s), flags: manage-temporary-address,no-prefixroute, scope: global
+Feb 09 11:30:23 slepice systemd-networkd[12922]: end2: ndisc_check_ready(): SLAAC addresses and routes are not set.
+Feb 09 11:30:23 slepice systemd-networkd[12922]: end2: SLAAC addresses and routes set.
+</code></pre>
+<h2 id="tcpdump">tcpdump</h2>
+<p>Indeed, the conclusions from the logs were right. We can see the rebind failing with T1:0 T2:0 and no prefix. Funny part is that it succeeded
+several times before it failed:</p>
+<pre><code>root@slepice:/home/th# tcpdump -i end2 -n ip6 and udp port 546 or udp port 547 -vvv
+...
+11:30:01.879154 IP6 (flowlabel 0x1639f, hlim 64, next-header UDP (17) payload length: 257) fe80::aef8:ccff:fe64:3975.547 &gt; fe80::da58:d7ff:fe00:19f3.546: [udp sum ok] dhcp6 reply (xid=452c27 (IA_NA IAID:2885014782 T1:194180 T2:310688 (IA_ADDR 2a02:aa11:380:300::d6f1 pltime:388361 vltime:388361) (status-code Success)) (IA_PD IAID:2885014782 T1:5 T2:10 (IA_PD-prefix 2a02:aa11:380:310::/60 pltime:7200 vltime:10800) (status-code Success)) (server-ID hwaddr/time type 1 time 684092944 acf8cc643975) (client-ID vid 0000ab110ccd5bd4) (preference 255) (DNS-server 2001:730:3e82::12 2001:730:3e82::13))
+11:30:07.881235 IP6 (flowlabel 0x3dcd2, hlim 1, next-header UDP (17) payload length: 166) fe80::da58:d7ff:fe00:19f3.546 &gt; ff02::1:2.547: [bad udp cksum 0xc88a -&gt; 0x3c2b!] dhcp6 renew (xid=2db0ca (server-ID hwaddr/time type 1 time 684092944 acf8cc643975) (IA_NA IAID:2885014782 T1:0 T2:0 (IA_ADDR 2a02:aa11:380:300::d6f1 pltime:0 vltime:0)) (IA_PD IAID:2885014782 T1:0 T2:0 (IA_PD-prefix 2a02:aa11:380:310::/60 pltime:0 vltime:0)) (Client-FQDN) (option-request DNS-server SNTP-servers NTP-server) (client-ID vid 0000ab110ccd5bd4) (elapsed-time 0))
+11:30:07.883520 IP6 (flowlabel 0x1639f, hlim 64, next-header UDP (17) payload length: 257) fe80::aef8:ccff:fe64:3975.547 &gt; fe80::da58:d7ff:fe00:19f3.546: [udp sum ok] dhcp6 reply (xid=2db0ca (IA_NA IAID:2885014782 T1:194180 T2:310688 (IA_ADDR 2a02:aa11:380:300::d6f1 pltime:388361 vltime:388361) (status-code Success)) (IA_PD IAID:2885014782 T1:5 T2:10 (IA_PD-prefix 2a02:aa11:380:310::/60 pltime:7200 vltime:10800) (status-code Success)) (server-ID hwaddr/time type 1 time 684092944 acf8cc643975) (client-ID vid 0000ab110ccd5bd4) (preference 255) (DNS-server 2001:730:3e82::12 2001:730:3e82::13))
+11:30:13.653915 IP6 (flowlabel 0x3dcd2, hlim 1, next-header UDP (17) payload length: 166) fe80::da58:d7ff:fe00:19f3.546 &gt; ff02::1:2.547: [bad udp cksum 0xc88a -&gt; 0xb262!] dhcp6 renew (xid=b03a10 (server-ID hwaddr/time type 1 time 684092944 acf8cc643975) (IA_NA IAID:2885014782 T1:0 T2:0 (IA_ADDR 2a02:aa11:380:300::d6f1 pltime:0 vltime:0)) (IA_PD IAID:2885014782 T1:0 T2:0 (IA_PD-prefix 2a02:aa11:380:310::/60 pltime:0 vltime:0)) (Client-FQDN) (option-request DNS-server SNTP-servers NTP-server) (client-ID vid 0000ab110ccd5bd4) (elapsed-time 0))
+11:30:13.658293 IP6 (flowlabel 0x1639f, hlim 64, next-header UDP (17) payload length: 257) fe80::aef8:ccff:fe64:3975.547 &gt; fe80::da58:d7ff:fe00:19f3.546: [udp sum ok] dhcp6 reply (xid=b03a10 (IA_NA IAID:2885014782 T1:194180 T2:310688 (IA_ADDR 2a02:aa11:380:300::d6f1 pltime:388361 vltime:388361) (status-code Success)) (IA_PD IAID:2885014782 T1:5 T2:10 (IA_PD-prefix 2a02:aa11:380:310::/60 pltime:7200 vltime:10800) (status-code Success)) (server-ID hwaddr/time type 1 time 684092944 acf8cc643975) (client-ID vid 0000ab110ccd5bd4) (preference 255) (DNS-server 2001:730:3e82::12 2001:730:3e82::13))
+11:30:23.655773 IP6 (flowlabel 0x3dcd2, hlim 1, next-header UDP (17) payload length: 148) fe80::da58:d7ff:fe00:19f3.546 &gt; ff02::1:2.547: [bad udp cksum 0xc878 -&gt; 0x6651!] dhcp6 rebind (xid=92cf1e (IA_NA IAID:2885014782 T1:0 T2:0 (IA_ADDR 2a02:aa11:380:300::d6f1 pltime:0 vltime:0)) (IA_PD IAID:2885014782 T1:0 T2:0 (IA_PD-prefix 2a02:aa11:380:310::/60 pltime:0 vltime:0)) (Client-FQDN) (option-request DNS-server SNTP-servers NTP-server) (client-ID vid 0000ab110ccd5bd4) (elapsed-time 0))
+11:30:23.658037 IP6 (flowlabel 0x1639f, hlim 64, next-header UDP (17) payload length: 182) fe80::aef8:ccff:fe64:3975.547 &gt; fe80::da58:d7ff:fe00:19f3.546: [udp sum ok] dhcp6 reply (xid=92cf1e (IA_NA IAID:2885014782 T1:194180 T2:310688 (IA_ADDR 2a02:aa11:380:300::d6f1 pltime:388361 vltime:388361) (status-code Success)) (IA_PD IAID:2885014782 T1:0 T2:0) (server-ID hwaddr/time type 1 time 684092944 acf8cc643975) (client-ID vid 0000ab110ccd5bd4) (preference 255) (DNS-server 2001:730:3e82::12 2001:730:3e82::13))
+</code></pre>
+<h2 id="whatwho-is-wrong-then">What/who is wrong then?</h2>
+<p>Even though I read the relevant RFCs I am not sure where the problem really is.</p>
+<ul>
+<li>I believe that the modem sets insane T1:5 T2:10. WDYT @sunrise.ch ? :-)</li>
+<li>I believe that the modem should stay consistent and the rebind should succeed.</li>
+<li>I think that <code>systemd-networkd</code> shoud re-try to re-acquire the PD when it fails to get it. However it seems that at least with systemd 252 it is
+not the case. I digged into current git master (257.3+) and I do not think that it has changed. This remains TODO to test and understand.</li>
+<li>Interestingly, PD is stable with <code>wide-dhcpv6-client</code> and it seems that the router sends a bit longer T1 (like 17) as well as T2
+and there are only renews and no rebinds (even after few hours running). But why? RFC says that DHCPv6 server must disregard any T1 nd T2 values
+in the requests and that the client should set them to 0, which is what both <code>systemd-networkd</code> and <code>wide-dhcpv6-client</code> do.</li>
+</ul>
+<p>Long story short: I feel so lonely. Sunrise must have shipped thousands maybe even tens of thousands of those modems. Am I the first one who tried this?</p>
+<p>TBH I do not know if the T1 and T2 values are pushed to the modem from the DOCSIS network config or if there is an upper level DHCPv6 PD or where
+the decission about the T1 and T2 values actually takes place. So could it be just a small misconfigured partition of the access network?</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+
+
+
+      
+    </article>
+  </div>
+
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../../..", "features": ["navigation.sections"], "search": "../../../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>
